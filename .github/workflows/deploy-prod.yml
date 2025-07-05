@@ -1,0 +1,36 @@
+name: Deploy rol-service to PROD
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: production
+    env:
+      HOST: ${{ secrets.EC2_PROD_IP }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up SSH key
+        run: |
+          mkdir -p ~/.ssh
+          echo "${{ secrets.EC2_PROD_SSH_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H github.com >> ~/.ssh/known_hosts
+
+      - name: Deploy to EC2 PROD
+        run: |
+          ssh -o StrictHostKeyChecking=no ec2-user@$HOST << 'EOF'
+          cd ~/services/rol-service
+          git pull origin main
+          docker stop rol-service-prod || true
+          docker rm rol-service-prod || true
+          docker build -t rol-service-prod .
+          docker run -d -p 5003:80 --name rol-service-prod rol-service-prod
+          EOF

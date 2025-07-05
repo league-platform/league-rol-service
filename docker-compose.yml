@@ -1,0 +1,11 @@
+version: '3.9'
+
+services:
+  rol-service:
+    build: .
+    container_name: rol-service
+    ports:
+      - "5002:80"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Production
+    restart: always
