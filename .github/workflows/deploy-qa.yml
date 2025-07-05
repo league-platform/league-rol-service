@@ -1,4 +1,4 @@
-name: Deploy rol-service to QA
+name: Deploy league-rol-service to QA
 
 on:
   push:
@@ -44,11 +44,11 @@ jobs:
 
             cd /home/ec2-user
 
-            if [ ! -d rol-service ]; then
-              git clone --branch qa https://github.com/league-platform/rol-service.git
+            if [ ! -d league-rol-service ]; then
+              git clone --branch qa https://github.com/league-platform/league-rol-service.git
             fi
 
-            cd rol-service
+            cd league-rol-service
             git reset --hard
             git pull origin qa
 
