@@ -32,7 +32,7 @@ jobs:
 
             # Clonar si no existe
             if [ ! -d rol-service ]; then
-              git clone --branch qa https://${{ secrets.PRIVATE_REPO_TOKEN }}@github.com/league-platform/rol-service.git
+              git clone --branch qa https://github.com/league-platform/rol-service.git
             fi
 
             cd rol-service
