@@ -18,5 +18,7 @@ builder.Services.AddControllers();
 
 var app = builder.Build();
 
+app.Urls.Add("http://0.0.0.0:80");
+
 app.MapControllers();
 app.Run();
