@@ -47,6 +47,7 @@ jobs:
             fi
 
             cd league-rol-service
+            sudo chown -R ec2-user:ec2-user .
             git config --global --add safe.directory /home/ec2-user/league-rol-service
             git reset --hard
             git pull origin qa
