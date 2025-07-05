@@ -3,6 +3,7 @@ using RolService.Models;
 using RolService.Data;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace RolService.Controllers;
 
