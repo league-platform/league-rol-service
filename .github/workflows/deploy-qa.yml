@@ -52,6 +52,12 @@ jobs:
             git reset --hard
             git pull origin qa
 
+            # Aplicar migraciones antes de levantar el contenedor
+            dotnet restore
+            dotnet tool install --global dotnet-ef || true
+            export PATH="$PATH:/home/ec2-user/.dotnet/tools"
+            dotnet ef database update --no-build --configuration Production
+
             docker compose down || true
             docker compose up -d --build
           EOF
